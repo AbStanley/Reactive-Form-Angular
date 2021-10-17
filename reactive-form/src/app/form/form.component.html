@@ -1,0 +1,102 @@
+<form [formGroup]="form" (ngSubmit)="showLog">
+    <!--
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" formControlName="firstName">
+        <div class="alert alert-danger">
+            <div *ngIf="firstName!.touched && firstName!.invalid">
+                <div *ngIf="firstName!.errors!.required">
+                    First Name is required
+                </div>
+                <div *ngIf="firstName!.errors!.minlength">
+                    First name must be at least {{firstName!.errors!.minlength.requiredLength}} characters long
+                </div>
+                <div *ngIf="firstName!.errors!.maxlength">
+                    First name must be at most {{firstName!.errors!.maxlength.requiredLength}} characters long
+                </div>
+                <div *ngIf="firstName!.errors!.cannotContainSpace">
+                    Name can not contain space
+                </div>
+                <div></div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="lastName" formControlName="lastName">
+        <div class="alert alert-danger">
+            <div *ngIf="lastName!.touched && lastName!.invalid">
+                <div *ngIf="lastName!.errors!.required">
+                    Last Name is required
+                </div>
+                <div *ngIf="lastName!.errors!.minlength">
+                    Last name must be at least {{lastName!.errors!.minlength.requiredLength}} characters long
+                </div>
+                <div *ngIf="lastName!.errors!.maxlength">
+                    Last name must be at most {{lastName!.errors!.maxlength.requiredLength}} characters long
+                </div>
+                <div *ngIf="lastName!.errors!.cannotContainSpace">
+                    Name can not contain space
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email*</label>
+        <input type="email" class="form-control" id="email" formControlName="email">
+        <div class="alert alert-danger">
+            <div *ngIf="email!.touched && email!.invalid">
+                <div *ngIf="email!.errors!.required">
+                    Email is required
+                </div>
+                <div *ngIf="email!.errors!.pattern">
+                    Email pattern is invalid
+                </div>
+            </div>
+        </div>
+    </div>
+-->
+<div class="form-group" formGroupName="passwords">
+    <div class="form-group">
+        <label for="password">Password*</label>
+        <input type="password" class="form-control" id="password" formControlName="password">
+        <div class="alert alert-danger">
+            
+            <div *ngIf="form.get('passwords.password')!.touched && password!.invalid">
+                <div *ngIf="password!.errors!.required">
+                    Password is required
+                </div>
+                <div *ngIf="password!.errors!.minlength">
+                    Password must be at least {{password!.errors!.minlength.requiredLength}} characters long
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="confirmPassword">Confirm Password*</label>
+        <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+        <div class="alert alert-danger">
+            <div *ngIf="confirmPassword!.touched && confirmPassword!.invalid">
+                <div *ngIf="confirmPassword!.errors!.required">
+                    Confirm Password is required
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+    <div *ngIf="form.get(['passwords','password'])!.value != form.get(['passwords','confirmPassword'])!.value && confirmPassword!.value != ''">
+                    
+        Password and Confirm Password must be same
+    </div>
+</div>
+
+    
+
+  <input type="submit" [disabled]="form!.invalid" class="btn btn-primary" value="Submit">
+</form>
