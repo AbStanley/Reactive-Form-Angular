@@ -1,10 +1,10 @@
-<form [formGroup]="form" (ngSubmit)="showLog">
-    <!--
+<h1>Personal Form</h1>
+<form [formGroup]="form" (ngSubmit)="showLog(form)">
     <div class="form-group">
         <label for="firstName">First Name</label>
         <input type="text" class="form-control" id="firstName" formControlName="firstName">
-        <div class="alert alert-danger">
-            <div *ngIf="firstName!.touched && firstName!.invalid">
+        
+            <div  class="alert alert-danger" *ngIf="firstName!.touched && firstName!.invalid">
                 <div *ngIf="firstName!.errors!.required">
                     First Name is required
                 </div>
@@ -20,14 +20,14 @@
                 <div></div>
             </div>
             
-        </div>
+       
     </div>
 
     <div class="form-group">
         <label for="lastName">Last Name</label>
         <input type="text" class="form-control" id="lastName" formControlName="lastName">
-        <div class="alert alert-danger">
-            <div *ngIf="lastName!.touched && lastName!.invalid">
+        
+            <div class="alert alert-danger" *ngIf="lastName!.touched && lastName!.invalid">
                 <div *ngIf="lastName!.errors!.required">
                     Last Name is required
                 </div>
@@ -42,14 +42,14 @@
                 </div>
                 
             </div>
-        </div>
+    
     </div>
 
     <div class="form-group">
         <label for="email">Email*</label>
         <input type="email" class="form-control" id="email" formControlName="email">
-        <div class="alert alert-danger">
-            <div *ngIf="email!.touched && email!.invalid">
+        
+            <div class="alert alert-danger" *ngIf="email!.touched && email!.invalid">
                 <div *ngIf="email!.errors!.required">
                     Email is required
                 </div>
@@ -57,16 +57,16 @@
                     Email pattern is invalid
                 </div>
             </div>
-        </div>
+        
     </div>
--->
-<div class="form-group" formGroupName="passwords">
+
+<div formGroupName="passwords">
     <div class="form-group">
         <label for="password">Password*</label>
         <input type="password" class="form-control" id="password" formControlName="password">
-        <div class="alert alert-danger">
+        
             
-            <div *ngIf="form.get('passwords.password')!.touched && password!.invalid">
+            <div class="alert alert-danger" *ngIf="form.get('passwords.password')!.touched && password!.invalid">
                 <div *ngIf="password!.errors!.required">
                     Password is required
                 </div>
@@ -74,14 +74,14 @@
                     Password must be at least {{password!.errors!.minlength.requiredLength}} characters long
                 </div>
             </div>
-        </div>
+        
     </div>
 
     <div class="form-group">
         <label for="confirmPassword">Confirm Password*</label>
         <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
-        <div class="alert alert-danger">
-            <div *ngIf="confirmPassword!.touched && confirmPassword!.invalid">
+        
+            <div class="alert alert-danger" *ngIf="confirmPassword!.touched && confirmPassword!.invalid">
                 <div *ngIf="confirmPassword!.errors!.required">
                     Confirm Password is required
                 </div>
@@ -89,14 +89,152 @@
                 
             </div>
         </div>
-    </div>
-    <div *ngIf="form.get(['passwords','password'])!.value != form.get(['passwords','confirmPassword'])!.value && confirmPassword!.value != ''">
+    
+    <div class="alert alert-danger" *ngIf="form.get(['passwords','password'])!.value != form.get(['passwords','confirmPassword'])!.value && confirmPassword!.value != ''">
                     
         Password and Confirm Password must be same
     </div>
 </div>
 
+<div class="form-group">
+    <label for="birthDate">Birth Date</label>
+    <input type="date" class="form-control" id="birthDate" formControlName="birthDate">
     
+        <div class="alert alert-danger" *ngIf="birthDate!.touched && birthDate!.invalid">
+            <div *ngIf="birthDate!.errors!.required">
+                Birth Date is required
+            </div>
+            
+            <div *ngIf="birthDate!.errors!.minDateValidator">
+                Date of birth is less than the current date.
+            </div>
+        </div>
+  
+</div>
+
+
+<div class="form-group">
+    <label for="telephone">Telephone</label>
+    <input type="text" class="form-control" id="telephone" formControlName="telephone">
+   
+        <div class="alert alert-danger" *ngIf="telephone!.touched && telephone!.invalid">
+            <div *ngIf="telephone!.errors!.required">
+                Telephone is required
+            </div>
+            
+            <div *ngIf="telephone!.errors!.pattern">
+                Telephone pattern is invalid
+            </div>
+        </div>
+    
+</div>
+
+<div class="form-group">
+    <label for="personalSiteUrl">Personal Site Url</label>
+    <input type="text" class="form-control" id="personalSiteUrl" formControlName="personalSiteUrl">
+    
+        <div class="alert alert-danger" *ngIf="personalSiteUrl!.touched && personalSiteUrl!.invalid">
+            <div *ngIf="personalSiteUrl!.errors!.required">
+                Personal Site Url is required
+            </div>
+            
+            <div *ngIf="personalSiteUrl!.errors!.pattern">
+                Personal Site Url pattern is invalid
+            </div>
+        </div>
+  
+</div>
+
+<div class="form-group">
+    <label for="aboutMe">About Me</label>
+    <textarea class="form-control" id="aboutMe" formControlName="aboutMe" rows="3"></textarea>  
+</div>
+
+
+<div class="form-group">
+    <label for="aboutMe">Genre*</label>
+    <div class="genreContainer" class="form-control" id="genre">
+      <div *ngFor="let genre of genreOptions" >
+        <label>
+          <input type="radio" name="genre" [value]="genre" formControlName="genre" />
+          {{ genre }}
+        </label>
+      </div>
+      <div class="alert alert-danger" *ngIf="genre!.touched && genre!.invalid">
+        <div *ngIf="genre!.errors!.required">
+            Genre is required
+        </div>
+    </div>
+  </div>
+</div>
+
+  
+    <label>Address:*</label>
+
+  <div class="form-group" >
+    <label for="countryAddress">Country*</label>
+    <select
+    formControlName="country"
+      name="countryAddress"
+      class="form-control"
+      id="countryAddress"  
+      (change)="onCountryChange($event)"
+    >
+      <option value="">Select an address</option>
+      <option
+        *ngFor="let country of countryStateOptions | keyvalue"
+        [value]="country.key"
+      >
+        {{ country.key }}
+      </option>
+    </select>
+    
+      <div class="alert alert-danger" *ngIf="country!.touched && country!.invalid">
+        <div *ngIf="country!.errors!.required">
+          Country is required
+        </div>
+      </div>
+    
+  </div>
+
+  <div class="form-group"  *ngIf="list_state != ''">
+    <label for="countryAddress">State*</label>
+    <select
+      formControlName="state"
+      name="stateAddress"
+      class="form-control"
+      id="stateAddress"
+    >
+      <option value="">Select a state</option>
+      <option
+        *ngFor="
+          let state of countryStateOptions[list_state] | keyvalue
+        "
+        [value]="state.value"
+      >
+        {{ state.value }}
+      </option>
+    </select>
+     
+        <div class="alert alert-danger" *ngIf="state!.touched && state!.invalid">
+          <div *ngIf="state!.errors!.required">
+             State is required
+          </div>
+        </div>
+
+  </div>
+
+    <div class="form-group">
+        <label for="agree">Agree</label>
+        <input type="checkbox" class="form-control" id="agree" formControlName="agree">
+        
+        <div class="alert alert-danger" *ngIf="agree!.touched && agree!.invalid">
+            <div *ngIf="agree!.errors!.required">
+            Agree is required
+            </div>
+        </div>
+        
+    </div>
 
   <input type="submit" [disabled]="form!.invalid" class="btn btn-primary" value="Submit">
 </form>
